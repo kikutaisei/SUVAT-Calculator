@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 // Parent class
@@ -256,7 +257,7 @@ class EquationOne{
             u = v - (a * t);
             cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
             cout << v << " = " << "U + (" << a << ")(" << t << ")" << "   <-- Substitute the numbers\n\n";
-            cout << v << " = " << "U + " << a * t << "   <-- Multiply A ✕ T\n\n";
+            cout << v << " = " << "U + " << a * t << "   <-- Multiply AT\n\n";
             cout << u << " = U" << "   <-- Subtract AT on both sides\n\n";
             cout << "U = " << u << "   <-- Swap around for simplicity\n\n";
             cout << "The answer is U = " << u << "ms⁻¹\n";
@@ -266,7 +267,7 @@ class EquationOne{
             v = u + (a * t);
             cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
             cout << "V = " << u << " + " << "(" << a << ")" << "(" << t << ")" << "   <-- Substitute the numbers\n\n";
-            cout << "V = " << u << " + " << a * t << "   <-- Multiply A ✕ T\n\n";
+            cout << "V = " << u << " + " << a * t << "   <-- Multiply AT\n\n";
             cout << "V = " << v << "   <-- Add U + AT\n\n";
             cout << "The answer is V = " << v << "ms⁻¹\n";
         }
@@ -284,7 +285,7 @@ class EquationOne{
         void solveForT(){
             t = (v - u) / a;
             cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
-            cout << v << " = " << u << " + " << a << "T" << "   <-- Multiply A ✕ T\n\n";
+            cout << v << " = " << u << " + " << a << "T" << "   <-- Multiply AT\n\n";
             cout << v - u << " = " << a << "T" << "   <-- Subtract U on both sides\n\n";
             cout << a << "T = " << v - u << "   <-- Swap around for simplicity\n\n";
             cout << "T = " << t << "   <-- Divide (V - U) ÷ A\n\n";
@@ -318,6 +319,104 @@ class EquationOne{
         }
 };
 
+class EquationTwo{
+    private:
+        double s;
+        double u;
+        double v;
+        double a;
+        string wantValue;
+
+        void setS(string inputS){
+            s = stod(inputS);
+        }
+
+        void setU(string inputU){
+            u = stod(inputU);
+        }
+
+        void setV(string inputV){
+            v = stod(inputV);
+        }
+
+        void setA(string inputA){
+            a = stod(inputA);
+        }
+
+        void setWantValue(string inputWantValue){
+            wantValue = inputWantValue;
+        }
+
+        void solveForS(){
+            s = (pow(v, 2) - pow(u, 2)) / (2 * a);
+            cout << "\n" << "V² = U² + 2AS" << "   <-- Your chosen equation\n\n";
+            cout << v << "² = " << u << "² + 2(" << a << ")(S)" << "   <-- Substitute the numbers\n\n";
+            cout << pow(v, 2) << " = " << pow(u, 2) << " + " << 2 * a << "S" << "   <-- Square V and U and Multiply 2A\n\n";
+            cout << pow(v, 2) - pow(u, 2) << " = " << 2 * a << "S" << "   <-- Subtract U² on both sides\n\n";
+            cout << 2 * a << "S = " << pow(v, 2) - pow(u, 2) << "   <-- Swap around for simplicity\n\n";
+            cout << "S = " << s << "   <-- Divide by 2A on both sides\n\n";
+            cout << "The answer is S = " << s << "m\n";
+        }
+
+        void solveForU(){
+            u = sqrt(pow(v, 2) - (2 * a * s));
+            cout << "\n" << "V² = U² + 2AS" << "   <-- Your chosen equation\n\n";
+            cout << v << "² = U² + 2(" << a << ")(" << s << ")" << "   <-- Substitute the numbers\n\n";
+            cout << pow(v, 2) << " = U² + " << 2 * a * s << "   <-- Square V and Multiply 2AS\n\n";
+            cout << (pow(v, 2)) - (2 * a * s) << " = U²" << "   <-- Subtract 2AS on both sidesn\n\n";
+            cout << "U² = " << (pow(v, 2)) - (2 * a * s) << "   <-- Swap around for simplicity\n\n";
+            cout << "U = " << u << "   <-- Square root on both sides\n\n";
+            cout << "The answer is U = " << u << "ms⁻¹\n";
+        }
+
+        void solveForV(){
+            v = sqrt(pow(u, 2) + (2 * a * s));
+            cout << "\n" << "V² = U² + 2AS" << "   <-- Your chosen equation\n\n";
+            cout << "V² = " << u << "² + 2(" << a << ")(" << s << ")" << "   <-- Substitute the numbers\n\n";
+            cout << "V² = " << pow(u, 2) << " + " << 2 * a * s << "   <-- Square U and multiply 2AS\n\n";
+            cout << "V² = " << pow(u, 2) + (2 * a * s) << "   <-- Add U² and 2AS\n\n";
+            cout << "V = " << v << "   <-- Square root on both sides\n\n";
+            cout << "The answer is V = " << v << "ms⁻¹\n"; 
+        }
+
+        void solveForA(){
+            a = (pow(v, 2) - pow(u, 2)) / (2 * s);
+            cout << "\n" << "V² = U² + 2AS" << "   <-- Your chosen equation\n\n";
+            cout << v << "² = " << u << "² + 2(A)(" << s << ")" << "   <-- Substitute the numbers\n\n";
+            cout << pow(v, 2) << " = " << pow(u, 2) << " + " << 2 * s << "A" << "   <-- Square V and U and Multiply 2S\n\n";
+            cout << pow(v, 2) - pow(u, 2) << " = " << 2 * s << "A" << "   <-- Subtract U² on both sides\n\n";
+            cout << 2 * s << "A = " << pow(v, 2) - pow(u, 2) << "   <-- Swap around for simplicity\n\n";
+            cout << "A = " << a << "   <-- Divide by 2S on both sides\n\n";
+            cout << "The answer is A = " << a << "ms⁻²\n";
+        }
+    
+    public:
+        EquationTwo(string inputS, string inputU, string inputV, string inputA, string inputWantValue){
+            setWantValue(inputWantValue);
+            if (wantValue == "S"){
+                setU(inputU);
+                setV(inputV);
+                setA(inputA);
+                solveForS();
+            }else if (wantValue == "U"){
+                setS(inputS);
+                setV(inputV);
+                setA(inputA);
+                solveForU();
+            }else if (wantValue == "V"){
+                setS(inputS);
+                setU(inputU);
+                setA(inputA);
+                solveForV();
+            }else if (wantValue == "A"){
+                setS(inputS);
+                setU(inputU);
+                setV(inputV);
+                solveForA();
+            }
+        }
+};
+
 int main(){
     cout << "\n"; // Adding extra space
 
@@ -325,6 +424,8 @@ int main(){
 
     if (newQuestion.getChosenEquation() == 1){
         EquationOne newEquationOne(newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
+    }else if (newQuestion.getChosenEquation() == 2){
+        EquationTwo newEquationTwo(newQuestion.getS(), newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getWantValue());
     }
 
     cout << "\n"; // Adding extra space
