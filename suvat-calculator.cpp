@@ -116,7 +116,7 @@ class SuvatQuestion{
                 while (true){
                     string choiceInputString;
                     cout << "\nYou can use the following equation(s):\n";
-                    cout << "1) " << equationOptions[options] << "\n\n";
+                    cout << "1) " << equationOptions[options] << "\n";
                     cout << "Press 1 to confirm and continue: ";
                     cin >> choiceInputString;
                     if (choiceInputString == "1"){
@@ -160,7 +160,7 @@ class SuvatQuestion{
                     for (int i = 0; i < 4; i++){
                         cout << i + 1 << ") " << equationOptions[options[i]] << "\n";
                     }
-                    cout << "\nPress the number of your desired equation to confirm and continue: ";
+                    cout << "Press the number of your desired equation to confirm and continue: ";
                     cin >> choiceInputString;
                     if (choiceInputString == "1" || choiceInputString == "2" || choiceInputString == "3" || choiceInputString == "4"){
                         int choiceInputInt = stoi(choiceInputString);
@@ -184,7 +184,7 @@ class SuvatQuestion{
         }
 
         string getV(){
-            return u;
+            return v;
         }
 
         string getA(){
@@ -224,29 +224,109 @@ class SuvatQuestion{
         }
 };
 
+class EquationOne{
+    private:
+        double u;
+        double v;
+        double a;
+        double t;
+        string wantValue;
+        
+        void setU(string inputU){
+            u = stod(inputU);
+        }
+
+        void setV(string inputV){
+            v = stod(inputV);
+        }
+
+        void setA(string inputA){
+            a = stod(inputA);
+        }
+
+        void setT(string inputT){
+            t = stod(inputT);
+        }
+
+        void setWantValue(string inputWantValue){
+            wantValue = inputWantValue;
+        }
+
+        void solveForU(){
+            u = v - (a * t);
+            cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
+            cout << v << " = " << "U + (" << a << ")(" << t << ")" << "   <-- Substitute the numbers\n\n";
+            cout << v << " = " << "U + " << a * t << "   <-- Multiply A ✕ T\n\n";
+            cout << u << " = U" << "   <-- Subtract AT on both sides\n\n";
+            cout << "U = " << u << "   <-- Swap around for simplicity\n\n";
+            cout << "The answer is U = " << u << "ms⁻¹\n";
+        }
+        
+        void solveForV(){
+            v = u + (a * t);
+            cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
+            cout << "V = " << u << " + " << "(" << a << ")" << "(" << t << ")" << "   <-- Substitute the numbers\n\n";
+            cout << "V = " << u << " + " << a * t << "   <-- Multiply A ✕ T\n\n";
+            cout << "V = " << v << "   <-- Add U + AT\n\n";
+            cout << "The answer is V = " << v << "ms⁻¹\n";
+        }
+
+        void solveForA(){
+            a = (v - u) / t;
+            cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
+            cout << v << " = " << u << " + " << t << "A" << "   <-- Substitute the numbers\n\n";
+            cout << v - u << " = " << t << "A" << "   <-- Subtract U on both sides\n\n";
+            cout << t << "A = " << v - u << "   <-- Swap around for simplicity\n\n";
+            cout << "A = " << a << "   <-- Divide (V - U) ÷ T\n\n";
+            cout << "The answer is A = " << a << "ms⁻²\n";
+        }
+
+        void solveForT(){
+            t = (v - u) / a;
+            cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
+            cout << v << " = " << u << " + " << a << "T" << "   <-- Multiply A ✕ T\n\n";
+            cout << v - u << " = " << a << "T" << "   <-- Subtract U on both sides\n\n";
+            cout << a << "T = " << v - u << "   <-- Swap around for simplicity\n\n";
+            cout << "T = " << t << "   <-- Divide (V - U) ÷ A\n\n";
+            cout << "The answer is T = " << t << "s\n";
+        }
+
+    public:
+        EquationOne(string inputU, string inputV, string inputA, string inputT, string inputWantValue){
+            setWantValue(inputWantValue);
+            if (wantValue == "U"){
+                setV(inputV);
+                setA(inputA);
+                setT(inputT);
+                solveForU();
+            }else if (wantValue == "V"){
+                setU(inputU);
+                setA(inputA);
+                setT(inputT);
+                solveForV();
+            }else if (wantValue == "A"){
+                setU(inputU);
+                setV(inputV);
+                setT(inputT);
+                solveForA();
+            }else if (wantValue == "T"){
+                setU(inputU);
+                setV(inputV);
+                setA(inputA);
+                solveForT();
+            }
+        }
+};
+
 int main(){
-    cout << "\n\n\n\n\n"; // Delete this later! This is to add some spacing between executions!
+    cout << "\n"; // Adding extra space
 
     SuvatQuestion newQuestion;
 
-    switch(newQuestion.getChosenEquation()){
-        case 1:
-            cout << "You chose equation 1."; // Run code for EquationOne class here
-            break;
-        case 2:
-            cout << "You chose equation 2."; // Run code for EquationTwo class here
-            break;
-        case 3:
-            cout << "You chose equation 3."; // Run code for EquationThree class here
-            break;
-        case 4:
-            cout << "You chose equation 4."; // Run code for EquationFour class here
-            break;
-        case 5:
-            cout << "You chose equation 5."; // Run code for EquationFive class here
-            break;
+    if (newQuestion.getChosenEquation() == 1){
+        EquationOne newEquationOne(newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }
 
-    cout << "\n\n\n\n\n"; // Delete this later! This is to add some spacing between executions!
+    cout << "\n"; // Adding extra space
     return 0;
 }
