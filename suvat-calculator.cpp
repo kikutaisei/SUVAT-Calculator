@@ -3,7 +3,7 @@ using namespace std;
 
 // Parent class
 class SuvatQuestion{
-    protected:
+    private:
         string s;
         string u;
         string v;
@@ -14,7 +14,6 @@ class SuvatQuestion{
         bool unknownValueExists;
         int chosenEquation;
 
-    private:
         bool validateSuvat(string suvatInputs[]){
             int wants = 0;
             int unknowns = 0;
@@ -175,10 +174,36 @@ class SuvatQuestion{
         }
 
     public:
+        // Getters
+        string getS(){
+            return s;
+        }
+
+        string getU(){
+            return u;
+        }
+
+        string getV(){
+            return u;
+        }
+
+        string getA(){
+            return a;
+        }
+
+        string getT(){
+            return t;
+        }
+
+        string getWantValue(){
+            return wantValue;
+        }
+
         int getChosenEquation(){
             return chosenEquation;
         }
 
+        // Constructor function which calls other private methods (validateSuvat, setSuvat and chooseEquation) within this class
         SuvatQuestion(){
                 string suvatLetters[5] = {"S", "U", "V", "A", "T"};
                 string suvatInputs[5];
