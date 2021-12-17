@@ -1,8 +1,9 @@
 #include <iostream>
 using namespace std;
 
+// Parent class
 class SuvatQuestion{
-    public:
+    protected:
         string s;
         string u;
         string v;
@@ -174,6 +175,10 @@ class SuvatQuestion{
         }
 
     public:
+        int getChosenEquation(){
+            return chosenEquation;
+        }
+
         SuvatQuestion(){
                 string suvatLetters[5] = {"S", "U", "V", "A", "T"};
                 string suvatInputs[5];
@@ -191,7 +196,6 @@ class SuvatQuestion{
                 }
             }
             chooseEquation();
-            cout << "You have chosen equation " << chosenEquation;
         }
 };
 
@@ -199,6 +203,24 @@ int main(){
     cout << "\n\n\n\n\n"; // Delete this later! This is to add some spacing between executions!
 
     SuvatQuestion newQuestion;
+
+    switch(newQuestion.getChosenEquation()){
+        case 1:
+            cout << "You chose equation 1."; // Run code for EquationOne class here
+            break;
+        case 2:
+            cout << "You chose equation 2."; // Run code for EquationTwo class here
+            break;
+        case 3:
+            cout << "You chose equation 3."; // Run code for EquationThree class here
+            break;
+        case 4:
+            cout << "You chose equation 4."; // Run code for EquationFour class here
+            break;
+        case 5:
+            cout << "You chose equation 5."; // Run code for EquationFive class here
+            break;
+    }
 
     cout << "\n\n\n\n\n"; // Delete this later! This is to add some spacing between executions!
     return 0;
