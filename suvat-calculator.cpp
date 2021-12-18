@@ -354,7 +354,7 @@ class EquationTwo{
             cout << pow(v, 2) << " = " << pow(u, 2) << " + " << 2 * a << "S" << "   <-- Square V and U and Multiply 2A\n\n";
             cout << pow(v, 2) - pow(u, 2) << " = " << 2 * a << "S" << "   <-- Subtract U² on both sides\n\n";
             cout << 2 * a << "S = " << pow(v, 2) - pow(u, 2) << "   <-- Swap around for simplicity\n\n";
-            cout << "S = " << s << "   <-- Divide by 2A on both sides\n\n";
+            cout << "S = " << s << "   <-- Divide 2A on both sides\n\n";
             cout << "The answer is S = " << s << "m\n";
         }
 
@@ -386,7 +386,7 @@ class EquationTwo{
             cout << pow(v, 2) << " = " << pow(u, 2) << " + " << 2 * s << "A" << "   <-- Square V and U and Multiply 2S\n\n";
             cout << pow(v, 2) - pow(u, 2) << " = " << 2 * s << "A" << "   <-- Subtract U² on both sides\n\n";
             cout << 2 * s << "A = " << pow(v, 2) - pow(u, 2) << "   <-- Swap around for simplicity\n\n";
-            cout << "A = " << a << "   <-- Divide by 2S on both sides\n\n";
+            cout << "A = " << a << "   <-- Divide 2S on both sides\n\n";
             cout << "The answer is A = " << a << "ms⁻²\n";
         }
     
@@ -417,6 +417,104 @@ class EquationTwo{
         }
 };
 
+class EquationThree{
+    private:
+        double s;
+        double u;
+        double a;
+        double tSingle; // Stores t for input
+        double tQuadratic[2]; // Stores t for output (Quadratic to find t)
+        string wantValue;
+
+        void setS(string inputS){
+            s = stod(inputS);
+        }
+
+        void setU(string inputU){
+            u = stod(inputU);
+        }
+
+        void setA(string inputA){
+            a = stod(inputA);
+        }
+
+        void setTSingle(string inputTSingle){
+            tSingle = stod(inputTSingle);
+        }
+
+        void setWantValue(string inputWantValue){
+            wantValue = inputWantValue;
+        }
+
+        void solveForS(){
+            s = (u * tSingle) + (0.5 * a * pow(tSingle, 2));
+            cout << "\n" << "S = UT + ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << "S = (" << u << ")(" << tSingle << ") + ½(" << a << ")(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << "S = " << u * tSingle << " + " << 0.5 * a * pow(tSingle, 2) << "   <-- Multiply UT and ½AT²\n\n";
+            cout << "S = " << s << "   <-- Add UT and ½AT²\n\n";
+            cout << "The answer is S = " << s << "m\n";
+        }
+
+        void solveForU(){
+            u = (s - (0.5 * a * pow(tSingle, 2))) / tSingle;
+            cout << "\n" << "S = UT + ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (U)(" << tSingle << ") + ½(" << a << ")(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << tSingle << "U + " << 0.5 * a * pow(tSingle, 2) << "   <-- Multiply UT and ½AT²\n\n";
+            cout << s - (0.5 * a * pow(tSingle, 2)) <<  " = " << tSingle << "U" << "   <-- Subtract ½AT² on both sides\n\n";
+            cout << tSingle << "U = " << s - (0.5 * a * pow(tSingle, 2)) << "   <-- Swap around for simplicity\n\n";
+            cout << "U = " << u << "   <-- Divide T on both sides\n\n";
+            cout << "The answer is U = " << u << "ms⁻¹\n";
+        }
+
+        void solveForA(){
+            a = (s - (u * tSingle)) / (0.5 * pow(tSingle, 2));
+            cout << "\n" << "S = UT + ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (" << u << ")(" << tSingle << ") + ½(A)(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << u * tSingle << " + " << 0.5 * pow(tSingle, 2) << "A" << "   <-- Multiply UT and ½AT²\n\n";
+            cout << s - (u * tSingle) << " = " << 0.5 * pow(tSingle, 2) << "A" << "   <-- Subtract UT on both sides\n\n";
+            cout << 0.5 * pow(tSingle, 2) << "A" << " = " << s - (u * tSingle) << "   <-- Swap around for simplicity\n\n";
+            cout << "A = " << a << "   <-- Divide T on both sides\n\n";
+            cout << "The answer is A = " << a << "ms⁻²\n";
+        }
+
+        void solveForTQuadratic(){
+            tQuadratic[0] = (-u + sqrt(pow(u, 2) - (2 * a * (-s)))) / a;
+            tQuadratic[1] = (-u - sqrt(pow(u, 2) - (2 * a * (-s)))) / a;
+            cout << "\n" << "S = UT + ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (" << u << ")(T) + ½(" << a << ")(T)²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << u << "T + " << 0.5 * a << "T²" << "   <-- Multiply UT and ½A\n\n";
+            cout << 0.5 * a << "T² + " << u << "T + " << -s << " = 0" << "   <-- Rearrange to quadratic equation format\n\n";
+            cout << "[USING QUADRATIC FORMULA]\n\n";
+            cout << "The answers are T = " << tQuadratic[0] << "s and T = " << tQuadratic[1] << "s\n";
+        }
+    
+    public:
+        EquationThree(string inputS, string inputU, string inputA, string inputTSingle, string inputWantValue){
+            setWantValue(inputWantValue);
+            if (wantValue == "S"){
+                setU(inputU);
+                setA(inputA);
+                setTSingle(inputTSingle);
+                solveForS();
+            }else if (wantValue == "U"){
+                setS(inputS);
+                setA(inputA);
+                setTSingle(inputTSingle);
+                solveForU();
+            }else if (wantValue == "A"){
+                setS(inputS);
+                setU(inputU);
+                setTSingle(inputTSingle);
+                solveForA();
+            }else if (wantValue == "T"){
+                setS(inputS);
+                setU(inputU);
+                setA(inputA);
+                solveForTQuadratic();
+            }
+        }
+};
+
 int main(){
     cout << "\n"; // Adding extra space
 
@@ -426,6 +524,8 @@ int main(){
         EquationOne newEquationOne(newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }else if (newQuestion.getChosenEquation() == 2){
         EquationTwo newEquationTwo(newQuestion.getS(), newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getWantValue());
+    }else if (newQuestion.getChosenEquation() == 3){
+        EquationThree newEquationThree(newQuestion.getS(), newQuestion.getU(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }
 
     cout << "\n"; // Adding extra space
