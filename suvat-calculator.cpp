@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-// Parent class
+// Main class which takes, validates and processes user input
 class SuvatQuestion{
     private:
         string s;
@@ -15,6 +15,9 @@ class SuvatQuestion{
         bool unknownValueExists;
         int chosenEquation;
 
+        // Checks the user's input values so they meet the valid criteria
+        // Returns true if valid and false if invalid
+        // If valid, assigns a boolean value to the unknownValueExists attribute
         bool validateSuvat(string suvatInputs[]){
             int wants = 0;
             int unknowns = 0;
@@ -39,6 +42,8 @@ class SuvatQuestion{
             }
         }
 
+        // Assings the user's input values to their corresponding attributes
+        // I.E. S -> s, U -> u, V -> u, A -> a, T -> t
         void setSuvat(string suvatInputs[]){
             for (int i = 0; i < 5; i++){
                 if (suvatInputs[i] == "?"){
@@ -99,6 +104,8 @@ class SuvatQuestion{
             }
         }
 
+        // Displays the equation options based on what values were input by the user
+        // Assigns the equation chosen by the user to the chosenEquation attribute
         void chooseEquation(){
             string equationOptions[5] = {"V = U + AT", "V² = U² + 2AS", "S = UT + ½AT²", "S = VT - ½AT²", "S = ½(U + V)T"};
             if (unknownValueExists == true){
@@ -204,7 +211,8 @@ class SuvatQuestion{
             return chosenEquation;
         }
 
-        // Constructor function which calls other private methods (validateSuvat, setSuvat and chooseEquation) within this class
+        // Constructor function which prompts the user for input
+        // Calls other private methods within this class (validateSuvat, setSuvat and chooseEquation)
         SuvatQuestion(){
                 string suvatLetters[5] = {"S", "U", "V", "A", "T"};
                 string suvatInputs[5];
@@ -225,6 +233,7 @@ class SuvatQuestion{
         }
 };
 
+// Class specific to equation 1 (V = U + AT)
 class EquationOne{
     private:
         double u;
@@ -233,6 +242,7 @@ class EquationOne{
         double t;
         string wantValue;
         
+        // Setters
         void setU(string inputU){
             u = stod(inputU);
         }
@@ -253,6 +263,7 @@ class EquationOne{
             wantValue = inputWantValue;
         }
 
+        // Solver functions based on the letter set to the wantValue attribute of the SuvatQuestion class
         void solveForU(){
             u = v - (a * t);
             cout << "\n" << "V = U + AT" << "   <-- Your chosen equation\n\n";
@@ -293,6 +304,8 @@ class EquationOne{
         }
 
     public:
+        // Constructor function which takes in the values input by the user in the SuvatQuestion class
+        // Runs the setters and solver function based on the letter set to the wantValue attribute of the SuvatQuestion class
         EquationOne(string inputU, string inputV, string inputA, string inputT, string inputWantValue){
             setWantValue(inputWantValue);
             if (wantValue == "U"){
@@ -319,6 +332,7 @@ class EquationOne{
         }
 };
 
+// Class specific to equation 2 (V² = U² + 2AS)
 class EquationTwo{
     private:
         double s;
@@ -327,6 +341,7 @@ class EquationTwo{
         double a;
         string wantValue;
 
+        // Setters
         void setS(string inputS){
             s = stod(inputS);
         }
@@ -347,6 +362,7 @@ class EquationTwo{
             wantValue = inputWantValue;
         }
 
+        // Solver functions based on the letter set to the wantValue attribute of the SuvatQuestion class
         void solveForS(){
             s = (pow(v, 2) - pow(u, 2)) / (2 * a);
             cout << "\n" << "V² = U² + 2AS" << "   <-- Your chosen equation\n\n";
@@ -391,6 +407,8 @@ class EquationTwo{
         }
     
     public:
+        // Constructor function which takes in the values input by the user in the SuvatQuestion class
+        // Runs the setters and solver function based on the letter set to the wantValue attribute of the SuvatQuestion class
         EquationTwo(string inputS, string inputU, string inputV, string inputA, string inputWantValue){
             setWantValue(inputWantValue);
             if (wantValue == "S"){
@@ -417,15 +435,17 @@ class EquationTwo{
         }
 };
 
+// Class specific to equation 3 (S = UT + ½AT²)
 class EquationThree{
     private:
         double s;
         double u;
         double a;
-        double tSingle; // Stores t for input
-        double tQuadratic[2]; // Stores t for output (Quadratic to find t)
+        double tSingle; // Stores t from user input (When t is one value)
+        double tQuadratic[2]; // Stores t for output (When t is wanted and the quadratic equation is used)
         string wantValue;
 
+        // Setters
         void setS(string inputS){
             s = stod(inputS);
         }
@@ -446,6 +466,7 @@ class EquationThree{
             wantValue = inputWantValue;
         }
 
+        // Solver functions based on the letter set to the wantValue attribute of the SuvatQuestion class
         void solveForS(){
             s = (u * tSingle) + (0.5 * a * pow(tSingle, 2));
             cout << "\n" << "S = UT + ½AT²" << "   <-- Your chosen equation\n\n";
@@ -489,6 +510,8 @@ class EquationThree{
         }
     
     public:
+        // Constructor function which takes in the values input by the user in the SuvatQuestion class
+        // Runs the setters and solver function based on the letter set to the wantValue attribute of the SuvatQuestion class
         EquationThree(string inputS, string inputU, string inputA, string inputTSingle, string inputWantValue){
             setWantValue(inputWantValue);
             if (wantValue == "S"){
@@ -515,15 +538,17 @@ class EquationThree{
         }
 };
 
+// Class specific to equation 4 (S = VT - ½AT²)
 class EquationFour{
     private:
         double s;
         double v;
         double a;
-        double tSingle; // Stores t for input
-        double tQuadratic[2]; // Stores t for output (Quadratic to find t)
+        double tSingle; // Stores t from user input (When t is one value)
+        double tQuadratic[2]; // Stores t for output (When t is wanted and the quadratic equation is used)
         string wantValue;
 
+        // Setters
         void setS(string inputS){
             s = stod(inputS);
         }
@@ -544,6 +569,7 @@ class EquationFour{
             wantValue = inputWantValue;
         }
 
+        // Solver functions based on the letter set to the wantValue attribute of the SuvatQuestion class
         void solveForS(){
             s = (v * tSingle) - (0.5 * a * pow(tSingle, 2));
             cout << "\n" << "S = VT - ½AT²" << "   <-- Your chosen equation\n\n";
@@ -588,6 +614,8 @@ class EquationFour{
         }
     
     public:
+        // Constructor function which takes in the values input by the user in the SuvatQuestion class
+        // Runs the setters and solver function based on the letter set to the wantValue attribute of the SuvatQuestion class
         EquationFour(string inputS, string inputV, string inputA, string inputTSingle, string inputWantValue){
             setWantValue(inputWantValue);
             if (wantValue == "S"){
@@ -614,6 +642,7 @@ class EquationFour{
         }
 };
 
+// Class specific to equation 5 (S = ½(U + V)T)
 class EquationFive{
     private:
         double s;
@@ -622,6 +651,7 @@ class EquationFive{
         double t;
         string wantValue;
 
+        // Setters
         void setS(string inputS){
             s = stod(inputS);
         }
@@ -642,6 +672,7 @@ class EquationFive{
             wantValue = inputWantValue;
         }
 
+        // Solver functions based on the letter set to the wantValue attribute of the SuvatQuestion class
         void solveForS(){
             s = 0.5 * (u + v) * t;
             cout << "\n" << "S = ½(U + V)T" << "   <-- Your chosen equation\n\n";
@@ -685,6 +716,8 @@ class EquationFive{
         }
 
     public:
+        // Constructor function which takes in the values input by the user in the SuvatQuestion class
+        // Runs the setters and solver function based on the letter set to the wantValue attribute of the SuvatQuestion class
         EquationFive(string inputS, string inputU, string inputV, string inputT, string inputWantValue){
             setWantValue(inputWantValue);
             if (wantValue == "S"){
@@ -711,11 +744,14 @@ class EquationFive{
         }
 };
 
+// Main function to be run during execution
 int main(){
     cout << "\n"; // Adding extra space
 
+    // Creating a new object of the SuvatQuestion class for user input
     SuvatQuestion newQuestion;
 
+    // If statement which creates a new object of one of the five EquationX classes depending on the eqution chosen by the user
     if (newQuestion.getChosenEquation() == 1){
         EquationOne newEquationOne(newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }else if (newQuestion.getChosenEquation() == 2){
