@@ -515,6 +515,105 @@ class EquationThree{
         }
 };
 
+class EquationFour{
+    private:
+        double s;
+        double v;
+        double a;
+        double tSingle; // Stores t for input
+        double tQuadratic[2]; // Stores t for output (Quadratic to find t)
+        string wantValue;
+
+        void setS(string inputS){
+            s = stod(inputS);
+        }
+
+        void setV(string inputV){
+            v = stod(inputV);
+        }
+
+        void setA(string inputA){
+            a = stod(inputA);
+        }
+
+        void setTSingle(string inputTSingle){
+            tSingle = stod(inputTSingle);
+        }
+
+        void setWantValue(string inputWantValue){
+            wantValue = inputWantValue;
+        }
+
+        void solveForS(){
+            s = (v * tSingle) - (0.5 * a * pow(tSingle, 2));
+            cout << "\n" << "S = VT - ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << "S = (" << v << ")(" << tSingle << ") - ½(" << a << ")(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << "S = " << v * tSingle << " - " << 0.5 * a * pow(tSingle, 2) << "   <-- Multiply VT and ½AT²\n\n";
+            cout << "S = " << s << "   <-- Add VT and ½AT²\n\n";
+            cout << "The answer is S = " << s << "m\n";
+        }
+        
+        void solveForV(){
+            v = (s + (0.5 * a * pow(tSingle, 2))) / tSingle;
+            cout << "\n" << "S = VT - ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (V)(" << tSingle << ") - ½(" << a << ")(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << tSingle << "V - " << 0.5 * a * pow(tSingle, 2) << "   <-- Multiply VT and ½AT²\n\n";
+            cout << s + (0.5 * a * pow(tSingle, 2)) <<  " = " << tSingle << "V" << "   <-- Add ½AT² on both sides\n\n";
+            cout << tSingle << "V = " << s + (0.5 * a * pow(tSingle, 2)) << "   <-- Swap around for simplicity\n\n";
+            cout << "V = " << v << "   <-- Divide T on both sides\n\n";
+            cout << "The answer is V = " << v << "ms⁻¹\n";
+        }
+        
+        void solveForA(){
+            a = (-s + (v * tSingle)) / (0.5 * pow(tSingle, 2));
+            cout << "\n" << "S = VT - ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (" << v << ")(" << tSingle << ") - ½(A)(" << tSingle << ")²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << v * tSingle << " - " << 0.5 * pow(tSingle, 2) << "A" << "   <-- Multiply VT and ½AT²\n\n";
+            cout << s - (v * tSingle) << " = " << -(0.5 * pow(tSingle, 2)) << "A" << "   <-- Subtract VT on both sides\n\n";
+            cout << -(s - (v * tSingle)) << " = " << 0.5 * pow(tSingle, 2) << "A" << "   <-- Divide -1 on both sides\n\n";
+            cout << 0.5 * pow(tSingle, 2) << "A" << " = " << -(s - (v * tSingle)) << "   <-- Swap around for simplicity\n\n";
+            cout << "A = " << a << "   <-- Divide T on both sides\n\n";
+            cout << "The answer is A = " << a << "ms⁻²\n";
+        }
+        
+        void solveForTQuadratic(){
+            tQuadratic[0] = -(-v + sqrt(pow(v, 2) - (2 * a * (s)))) / a;
+            tQuadratic[1] = -(-v - sqrt(pow(v, 2) - (2 * a * (s)))) / a;
+            cout << "\n" << "S = VT - ½AT²" << "   <-- Your chosen equation\n\n";
+            cout << s << " = (" << v << ")(T) - ½(" << a << ")(T)²" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << v << "T - " << 0.5 * a << "T²" << "   <-- Multiply VT and ½A\n\n";
+            cout << -(0.5 * a) << "T² + " << v << "T + " << -s << " = 0" << "   <-- Rearrange to quadratic equation format\n\n";
+            cout << "[USING QUADRATIC FORMULA]\n\n";
+            cout << "The answers are T = " << tQuadratic[0] << "s and T = " << tQuadratic[1] << "s\n";
+        }
+    
+    public:
+        EquationFour(string inputS, string inputV, string inputA, string inputTSingle, string inputWantValue){
+            setWantValue(inputWantValue);
+            if (wantValue == "S"){
+                setV(inputV);
+                setA(inputA);
+                setTSingle(inputTSingle);
+                solveForS();
+            }else if (wantValue == "V"){
+                setS(inputS);
+                setA(inputA);
+                setTSingle(inputTSingle);
+                solveForV();
+            }else if (wantValue == "A"){
+                setS(inputS);
+                setV(inputV);
+                setTSingle(inputTSingle);
+                solveForA();
+            }else if (wantValue == "T"){
+                setS(inputS);
+                setV(inputV);
+                setA(inputA);
+                solveForTQuadratic();
+            }
+        }
+};
+
 int main(){
     cout << "\n"; // Adding extra space
 
@@ -526,6 +625,8 @@ int main(){
         EquationTwo newEquationTwo(newQuestion.getS(), newQuestion.getU(), newQuestion.getV(), newQuestion.getA(), newQuestion.getWantValue());
     }else if (newQuestion.getChosenEquation() == 3){
         EquationThree newEquationThree(newQuestion.getS(), newQuestion.getU(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
+    }else if (newQuestion.getChosenEquation() == 4){
+        EquationFour newEquationFour(newQuestion.getS(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }
 
     cout << "\n"; // Adding extra space
