@@ -226,7 +226,7 @@ class SuvatQuestion{
                     setSuvat(suvatInputs);
                     break;
                 }else{
-                    cout << "\nYour input(s) were invalid. Please try again.";
+                    cout << "\nYour input(s) were invalid. Please try again.\n";
                 }
             }
             chooseEquation();
