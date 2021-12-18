@@ -614,6 +614,103 @@ class EquationFour{
         }
 };
 
+class EquationFive{
+    private:
+        double s;
+        double u;
+        double v;
+        double t;
+        string wantValue;
+
+        void setS(string inputS){
+            s = stod(inputS);
+        }
+
+        void setU(string inputU){
+            u = stod(inputU);
+        }
+
+        void setV(string inputV){
+            v = stod(inputV);
+        }
+
+        void setT(string inputT){
+            t = stod(inputT);
+        }
+
+        void setWantValue(string inputWantValue){
+            wantValue = inputWantValue;
+        }
+
+        void solveForS(){
+            s = 0.5 * (u + v) * t;
+            cout << "\n" << "S = ½(U + V)T" << "   <-- Your chosen equation\n\n";
+            cout << "S = ½(" << u << " + " << v << ")(" << t << ")" << "   <-- Substitute the numbers\n\n";
+            cout << "S = ½(" << u + v << ")(" << t << ")" << "   <-- Add U + V\n\n";
+            cout << "S = " << s << "   <-- Multiply ½(U + V)T\n\n";
+            cout << "The answer is S = " << s << "m\n";
+        }
+
+        void solveForU(){
+            u = (s / (0.5 * t)) - v;
+            cout << "\n" << "S = ½(U + V)T" << "   <-- Your chosen equation\n\n";
+            cout << s << " = ½(U + " << v << ")(" << t << ")" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << 0.5 * t << "(U + " << v << ")" << "   <-- Multiply ½T\n\n";
+            cout << s / (0.5 * t) << " = U + " << v << "   <-- Divide ½A on both sides\n\n";
+            cout << "U + " << v << " = " << s / (0.5 * t) << "   <-- Swap around for simplicity\n\n";
+            cout << "U = " << u << "   <-- Subtract V on both sides\n\n";
+            cout << "The answer is U = " << u << "ms⁻¹\n";
+        }
+
+        void solveForV(){
+            v = (s / (0.5 * t)) - u;
+            cout << "\n" << "S = ½(U + V)T" << "   <-- Your chosen equation\n\n";
+            cout << s << " = ½(" << u << " + V)(" << t << ")" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = " << 0.5 * t << "(" << u << " + V)" << "   <-- Multiply ½T\n\n";
+            cout << s / (0.5 * t) << " = " << u << " + V" << "   <-- Divide ½A on both sides\n\n";
+            cout << u << " + V = " << s / (0.5 * t) << "   <-- Swap around for simplicity\n\n";
+            cout << "V = " << v << "   <-- Subtract V on both sides\n\n";
+            cout << "The answer is V = " << v << "ms⁻¹\n";
+        }
+
+        void solveForT(){
+            t = s / (0.5 * (u + v));
+            cout << "\n" << "S = ½(U + V)T" << "   <-- Your chosen equation\n\n";
+            cout << s << " = ½(" << u << " + " << v << ")(T)" << "   <-- Substitute the numbers\n\n";
+            cout << s << " = ½(" << u + v << ")(T)" << "   <-- Add U + V\n\n";
+            cout << s << " = " << 0.5 * (u + v) << "T" << "   <-- Multiply ½(U + V)\n\n";
+            cout << 0.5 * (u + v) << "T = " << s << "   <-- Swap around for simplicity\n\n";
+            cout << "T = " << t << "   <-- Divide ½(U + V) on both sides\n\n";
+            cout << "The answer is T = " << t << "s\n";
+        }
+
+    public:
+        EquationFive(string inputS, string inputU, string inputV, string inputT, string inputWantValue){
+            setWantValue(inputWantValue);
+            if (wantValue == "S"){
+                setU(inputU);
+                setV(inputV);
+                setT(inputT);
+                solveForS();
+            }else if (wantValue == "U"){
+                setS(inputS);
+                setV(inputV);
+                setT(inputT);
+                solveForU();
+            }else if (wantValue == "V"){
+                setS(inputS);
+                setU(inputU);
+                setT(inputT);
+                solveForV();
+            }else if (wantValue == "T"){
+                setS(inputS);
+                setU(inputU);
+                setV(inputV);
+                solveForT();
+            }
+        }
+};
+
 int main(){
     cout << "\n"; // Adding extra space
 
@@ -627,6 +724,8 @@ int main(){
         EquationThree newEquationThree(newQuestion.getS(), newQuestion.getU(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
     }else if (newQuestion.getChosenEquation() == 4){
         EquationFour newEquationFour(newQuestion.getS(), newQuestion.getV(), newQuestion.getA(), newQuestion.getT(), newQuestion.getWantValue());
+    }else if (newQuestion.getChosenEquation() == 5){
+        EquationFive newEquationFive(newQuestion.getS(), newQuestion.getU(), newQuestion.getV(), newQuestion.getT(), newQuestion.getWantValue());
     }
 
     cout << "\n"; // Adding extra space
